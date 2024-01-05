@@ -16,6 +16,34 @@ from imblearn.ensemble import BalancedRandomForestClassifier
 from sklearn.metrics import confusion_matrix, precision_recall_fscore_support, roc_auc_score
 from sklearn.impute import SimpleImputer
 
+def compute_save_rfecv(X,y,filepath, step=1, verbose=0):
+    ## BRF estimator
+    clf = BalancedRandomForestClassifier(n_estimators=300,
+                                    random_state=50,
+                                    n_jobs=-1,
+                                    sampling_strategy="auto",
+                                    replacement=True,
+                                    bootstrap=True)
+    rfe = RFECV(estimator=clf, step=step, verbose=verbose)
+    rfe.fit(X,y)
+    print("Reduced to {} features".format(rfe.n_features_))
+    with open(filepath,"wb") as f:
+        pkl.dump(rfe, f)
+    return rfe
+
+def compute_save_ppca(X, ds, folder=None, fileroot=None, verbose=False, seed=None):
+    for i, d in enumerate(ds):
+        ppca = PPCA()
+        ppca.fit(data=X, d=d, verbose=verbose, seed=seed)
+        if folder is not None and fileroot is not None:
+            ppca_filename = folder+"ppca/"+ fileroot + str(int(d))
+            X_filename = folder+"X/"+fileroot + str(int(d))+".npy"
+            ppca.save(ppca_filename)
+            np.save(X_filename, ppca.data)
+            print("Saved files " + ppca_filename + " and " + X_filename)
+    if not i:
+        return ppca
+
 def fro_score(cmf, reduced=True):
     """
     Computes squared Frobenius distance (Euclidean distance in dimension n^2) 

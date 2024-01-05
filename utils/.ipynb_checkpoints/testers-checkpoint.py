@@ -137,3 +137,18 @@ def assess(y_test_array, y_pred_array, y_pred_proba_array=None, labels=None, ave
         return (prfs_mean, prfs_std, cm_mean, cm_std, rocauc_mean, rocauc_std)
     else:
         return (prfs, cm, rocauc)
+
+def test_datasets(sim_folder, notes=""):
+    for filename in [os.path.basename(path) for path in glob(sim_folder+"X/*")]:
+        X_raw = np.load(sim_folder+"X/"+"+filename)
+        if rotate:
+            ppca = PPCA()
+            ppca.load(sim_folder+"ppca/"+filename[1:])
+            X = ppca.transform(X_raw)
+        else:
+            X = X_raw
+        yts, yps, ypps, clf = ss(X,y,labels=plabels,n_splits=n_splits,n_estimators=n_estimators, progress=True, random_state=50)
+        pm, ps, cmm, cms, rm, rs = assess(yts, yps, y_pred_proba_array=ypps, labels=labels, split_average=True,average="macro")
+        assess_folder = "assess_rotate/" if rotate else "assess/"
+        with open(sim_folder+ assess_folder + filename+".pkl",'wb') as f:
+            pkl.dump([pm, ps, cmm, cms, rm, rs, notes],f)
