@@ -1,0 +1,8 @@
+Number 0: 2.npy, with roc 0.879353404045105
+Number 1: 3.npy, with roc 0.9081605076789856
+Number 2: 4.npy, with roc 0.9200136065483093
+Number 3: 5.npy, with roc 0.929398238658905
+Number 4: 15.npy, with roc 0.9411885142326355
+Number 5: 20.npy, with roc 0.9424217939376831
+Number 6: 10.npy, with roc 0.9430181384086609
+Number 7: 40.npy, with roc 0.9439622163772583

@@ -1,0 +1,8 @@
+Number 0: 10full.npy, with roc 0.9715001583099365
+Number 1: 45full.npy, with roc 0.9716902375221252
+Number 2: 50full.npy, with roc 0.9718652963638306
+Number 3: 150full.npy, with roc 0.9720973372459412
+Number 4: 100full.npy, with roc 0.9722787737846375
+Number 5: 1050.npy, with roc 0.973563015460968
+Number 6: 4050.npy, with roc 0.9740399122238159
+Number 7: 4950.npy, with roc 0.9743746519088745
